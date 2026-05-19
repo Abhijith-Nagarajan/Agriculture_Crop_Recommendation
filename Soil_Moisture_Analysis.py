@@ -1,14 +1,18 @@
+import os
 import pandas as pd
-import numpy as np 
+import numpy as np
 import requests
 import json
 import openpyxl
+from dotenv import load_dotenv
 from soil_analysis_database import DatabaseCRUDOperations
 
+load_dotenv()
+
 # Weather bit endpoints - https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=API_KEY&include=minutely
-weatherbit_api_key = "fdcf917e61644e42b23bda85da0c0309"
+weatherbit_api_key = os.getenv("WEATHERBIT_API_KEY")
 # OpenWeather endpoint - https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key}
-openweather_api_key = "464f061d35c8e41f2c783f8262dc42b1"
+openweather_api_key = os.getenv("OPENWEATHER_API_KEY")
 
 #Weather bit base endpoint
 weatherbit_endpoint = r"https://api.weatherbit.io/v2.0/current?"
@@ -164,7 +168,6 @@ for row in results:
 
 geospatial_df_test = pd.read_excel(".\Inputs\City_Geospatial_Data_Test.xlsx")
 openweather_endpoint = r"https://api.openweathermap.org/data/2.5/weather?"
-openweather_api_key = "464f061d35c8e41f2c783f8262dc42b1"
 
 for index,row in geospatial_df_test.iterrows():
         latitude = row[1]
